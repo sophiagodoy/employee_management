@@ -1,0 +1,7 @@
+O código implementa um sistema de gestão de funcionários em C++, permitindo:
+- Cadastro de Funcionários: Até 100 funcionários podem ser registrados com ID, nome, salário e idade.
+- Exibição de Funcionários: Lista todos os funcionários cadastrados.
+- Aumento de Salário: Permite aumentar o salário de um funcionário identificado pelo ID.
+- Filtragem por Salário: Exibe funcionários com salários acima de um valor especificado.
+- Cálculo da Média Salarial: Calcula e exibe a média salarial dos funcionários cadastrados.
+- O sistema inclui um menu interativo para facilitar a navegação entre as funcionalidades.
