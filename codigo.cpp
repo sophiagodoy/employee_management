@@ -1,170 +1,215 @@
-// GESTÃO DE FUNCIONÁRIO 
-// DEFININDO BIBLIOTECA
-#include <iostream>
+// SISTEMA DE GERENCIAMENTO DE BIBLIOTECA 
+// DEFININDO BIBLIOTECAS 
+# include <iostream> 
+# include <string> 
 
-// DEFININDO STRUCT
-struct Funcionario {
-    int id;
-    char nome[50]; // char porque estou definindo o tamanho
-    float salario;
-    int idade;
+// DEFININDO STRUCT 
+struct Livros {
+    std::string titulo; 
+    std::string autor; 
+    int numero_de_paginas; 
+    int ano_de_publicacao; 
+    int id; 
+    int quantidade; 
+    std::string nome_pessoas; 
 }; 
 
-// FUNÇÃO PARA CADASTRAR FUNCIONÁRIO
-void cadastrar_funcionario(Funcionario vetor[], int &num_funcionarios) {
-    // & - pq precisamos atualizar num_funcionario cada vez que um funcionário novo é passado, nas outras funções não precisa porque ela apenas lê o valor de num_funcionario
+// FUNÇÃO PARA CADASTRAR LIVRO
+void cadastro_livros(Livros vetor[], int &cont) { // devo passar cont por referencia porque sempre estou atualizando o valor dele
+    // DEFININDO VARIÁVEIS
+    int i;
     char resposta; 
 
-    // DEFININDO CONDIÇÕES 
-    while (num_funcionarios < 100) {
-        // PEDINDO INFORMAÇÕES
-        std::cout << "Digite o ID do funcionario: "; 
-        std::cin >> vetor[num_funcionarios].id; // devo usar num_funcionario e nao i para garantir que cada novo funcionario seja armazenado na próxima posição dispinivel do vetor
+    // DEFININDO CONDIÇÕES
+    while (cont < 100) {
+        // PEDINDO INFORMAÇÕES 
+        std::cout << "Digite o titulo do livro: ";
+        std::cin >> vetor[cont].titulo; 
 
-        std::cout << "Digite o nome do funcionario: ";
-        std::cin >> vetor[num_funcionarios].nome; 
+        std::cout << "Digite o nome do autor: ";
+        std::cin >> vetor[cont].autor;
 
-        std::cout << "Digite o salario do funcionario: "; 
-        std::cin >> vetor[num_funcionarios].salario; 
+        std::cout << "Digite o numero de paginas: ";
+        std::cin >> vetor[cont].numero_de_paginas;
 
-        std::cout << "Digite a idade do funcionario: ";
-        std::cin >> vetor[num_funcionarios].idade; 
+        std::cout << "Digite o ano de publicacao: ";
+        std::cin >> vetor[cont].ano_de_publicacao;
 
-        num_funcionarios++;
+        std::cout << "Digite o codigo de identificacao do livro: ";
+        std::cin >> vetor[cont].id;
 
-        std::cout << "Funcionario cadastrado com sucesso" << std::endl; 
+        std::cout << "Digite a quantidade disponivel: ";
+        std::cin >> vetor[cont].quantidade;
 
-        std::cout << "Deseja cadastrar mais um funcionario? (S/N): ";
+        std::cout << "Digite o nome da pessoa que fez o emprestimo: ";
+        std::cin >> vetor[cont].nome_pessoas;
+
+        cont++;
+
+        std::cout << "Livro cadastrado com sucesso!" << std::endl;
+
+        std::cout << "Deseja cadastrar outro livro? (S || N): "; 
         std::cin >> resposta;
 
-        if (resposta == 'N' || resposta == 'n') {
+        if (resposta == 'n' || resposta == 'N') {
             break;
         }
     }
 
-    if (num_funcionarios == 100) {
-        std::cout << "O limite de funcionarios para cadastrar foi atingido" << std::endl;
+    if (cont == 100){
+        std::cout << "O limite de livros foi atingido!";
     }
 }
 
-// FUNÇÃO PARA EXIBIR TODOS OS FUNCIONÁRIOS CADASTRADOS 
-void exibir_funcionarios(Funcionario vetor[], int num_funcionarios) {
+// FUNÇÃO PARA CONSULTAR OS LIVROS 
+void consultar_livro (Livros vetor[], int cont) { // devo passar cont como parametro porque preciso que as funções trabalhem com o valor mais recente de cont
     // DEFININDO VARIÁVEIS 
-    for (int i = 0; i < num_funcionarios; i++) { 
-        std::cout << "ID: " << vetor[i].id // uso i, porque estou dentro de um loop, se eu não existive usaria num_funcionario
-                  << ", Nome: " << vetor[i].nome 
-                  << ", Salario: " << vetor[i].salario 
-                  << ", Idade: " << vetor[i].idade << std::endl; 
-    }
-}
+    int opcao;
+    int codigo_de_identificacao; 
+    std::string titulo_identificacao;
+    int i;
 
-// FUNÇÃO PARA AUMENTAR O SALÁRIO
-void aumentar_salario(Funcionario vetor[], int num_funcionarios) {
-    int id;
-    float aumento;
-    bool encontrado = false; // verifica se o funcionário foi encontrado
-
-    // PEDINDO INFORMAÇÕES 
-    std::cout << "Digite o ID do funcionario: "; 
-    std::cin >> id; 
-
-    std::cout << "Digite o valor do aumento do salario: ";
-    std::cin >> aumento;
+    // MENU INTERATIVO
+    std::cout << "(1) Consultar todos os livros" << std::endl;
+    std::cout << "(2) Consultar por codigo de identificacao" << std::endl;
+    std::cout << "(3) Consultar pelo titulo" << std::endl;
+    std::cout << "(4) Remover cadastro de um livro" << std::endl;
+    std::cout << "Qual opcao deseja: " << std::endl;
+    std::cin >> opcao;
 
     // DEFININDO CONDIÇÕES 
-    for (int i = 0; i < num_funcionarios; i++) {
-        if (vetor[i].id == id) {
-            vetor[i].salario += aumento; 
-            std::cout << "Salario aumentado com sucesso" << std::endl;
-            encontrado = true;
-            break;
+    if (opcao == 1) {
+        for (i = 0; i < cont; i++) {
+            std::cout << "Titulo: " << vetor[i].titulo  << ", autor: " << vetor[i].autor << ", numero de paginas: " << vetor[i].numero_de_paginas << ", ano de publicacao: " << vetor[i].ano_de_publicacao << ", ID: " << vetor[i].id << ", quantidade: " << vetor[i].quantidade << ", nome de pessoas que emprestou: " << vetor[i].nome_pessoas << std::endl;
         }
     }
+    if (opcao == 2) {
+        std::cout << "Digite o codigo de identificacao: "; 
+        std::cin >> codigo_de_identificacao; 
 
-    if (encontrado == false) {
-        std::cout << "Funcionario não encontrado" << std::endl;
+        for (i = 0; i < cont; i++) {
+            if (codigo_de_identificacao == vetor[i].id) {
+                std::cout << "Titulo: " << vetor[i].titulo  << ", autor: " << vetor[i].autor << ", numero de paginas: " << vetor[i].numero_de_paginas << ", ano de publicacao: " << vetor[i].ano_de_publicacao << ", ID: " << vetor[i].id << ", quantidade: " << vetor[i].quantidade << ", nome de pessoas que emprestou: " << vetor[i].nome_pessoas << std::endl;
+            }
+        }
     }
-}
+    if (opcao == 3) {
+        std::cout << "Digite o titulo: "; 
+        std::cin >> titulo_identificacao; 
 
-// FUNÇÃO PARA EXIBIR O SALÁRIO ACIMA DE UM VALOR
-void exibir_salario_acima(Funcionario vetor[], int num_funcionarios) {
-    float valor_salario;
-
-    // PEDINDO INFORMAÇÕES 
-    std::cout << "Digite o valor do salario: ";
-    std::cin >> valor_salario;
-
-    // DEFININDO CONDIÇÕES 
-    for (int i = 0; i < num_funcionarios; i++) {
-        if (vetor[i].salario > valor_salario) {
-            std::cout << "ID: " << vetor[i].id 
-                      << ", Nome: " << vetor[i].nome 
-                      << ", Salario: " << vetor[i].salario << std::endl;
+        for (i = 0; i < cont; i++) {
+            if (titulo_identificacao == vetor[i].titulo) {
+                std::cout << "Titulo: " << vetor[i].titulo  << ", autor: " << vetor[i].autor << ", numero de paginas: " << vetor[i].numero_de_paginas << ", ano de publicacao: " << vetor[i].ano_de_publicacao << ", ID: " << vetor[i].id << ", quantidade: " << vetor[i].quantidade << ", nome de pessoas que emprestou: " << vetor[i].nome_pessoas << std::endl;
+            }
         }
     }
 }
 
-// FUNÇÃO PARA CALCULAR A MEDIA SALARIAL 
-void media_salarial(Funcionario vetor[], int num_funcionarios) {
-    float soma = 0; 
+// FUNÇÃO PARA EMPRÉSTIMO 
+void emprestimo_livro (Livros vetor[], int cont) {
+    // DEFININDO VARIÁVEIS 
+    int codigo_de_identificacao;
+    int i;
+
+    // PEDINDO INFORMAÇÕES 
+    std::cout << "Digite o codigo de identificacao do livro para empretimo: ";
+    std::cin >> codigo_de_identificacao;
 
     // DEFININDO CONDIÇÕES
-    for (int i = 0; i < num_funcionarios; i++) {
-        soma += vetor[i].salario;
-    }
+    for (i = 0; i < cont; i++) {
+        if (codigo_de_identificacao == vetor[i].id) {
+            if (vetor[i].quantidade > 0) {
+                std::cout << "Digite o nome da pessoa que está fazendo o emprestimo: ";
+                std::cin >> vetor[i].nome_pessoas; 
+                vetor[i].quantidade--; // tirando um livro de quantidade 
 
-    if (num_funcionarios > 0) { // evita divisões por zero 
-        float media = soma / num_funcionarios;
-        std::cout << "O valor da media e: " << media << std::endl;
-    } 
-    else {
-        std::cout << "Nenhum funcionario cadastrado para calcular a media." << std::endl;
+                // EXIBINDO RESULTADO
+                std::cout << "Emprestimo realizado com sucesso!" << std::endl;
+                std::cout << "Quantidade restante: " << vetor[i].quantidade << std::endl;
+            }
+        }
+        else {
+           std::cout << "O livro ja foi emprestado!" << std::endl; 
+        }
     }
+    std::cout << "Livro nao encontrado!" << std::endl;
+}
+
+// FUNÇÃO PARA REALIZAR DEVOLUÇÃO 
+void devolucao_livro (Livros vetor[], int cont) {
+    // DEFININDO VARIÁVEIS 
+    int codigo_de_identificacao;
+    int i;
+
+    // PEDINDO INFORMAÇÕES 
+    std::cout << "Digite o codigo de identificacao do livro para devolucao: "; 
+    std::cin >> codigo_de_identificacao;
+
+    // DEFININDO CONDIÇÕES 
+    for (i = 0; i < cont; i++) {
+        if (codigo_de_identificacao == vetor[i].id) {
+            std::cout << "Devolucao realizada com sucesso!" << std::endl;
+            std::cout << "Quantidade atual: " << vetor[i].quantidade << std::endl;
+        }
+    }
+    std::cout << "Livro nao encontrado!";
+}
+
+// FUNÇÃO PARA REMOLVER LIVRO 
+void remover_livro (Livros vetor[], int cont) {
+    // DEFININDO VARIÁVEIS
+    int codigo_de_identificacao;
+    int i;
+
+    // PEDINDO INFORMAÇÕES
+    std::cout << "Digite o codigo de identificacao do livro que deseja remolver: ";
+    std::cin >> codigo_de_identificacao;
+
+    // DEFININDO CONDIÇÕES 
+    for (i = 0; i < cont; i++) {
+        if (codigo_de_identificacao == vetor[i].id) {
+            cont--; // deminui o número total de livros
+            std::cout << "Livro remolvido com sucesso!";
+        }
+    }
+    std::cout << "Livro nao encontrado!";
 }
 
 int main() {
-    // DEFININDO VARIÁVEIS
-    Funcionario vetor[100]; 
-    int num_funcionarios = 0;
-    int opcao;
+    // DEFININDO VARIÁVEIS 
+    Livros vetor[100];
+    int escolha;
+    int cont = 0;
 
     do {
-        // MENU DE OPÇÕES
-        std::cout << "\n1. Cadastrar Funcionario\n";
-        std::cout << "2. Exibir Funcionarios\n";
-        std::cout << "3. Aumentar Salario\n";
-        std::cout << "4. Exibir Funcionarios com Salario Acima de um Valor\n";
-        std::cout << "5. Media Salarial\n";
-        std::cout << "6. Sair\n";
-        std::cout << "Escolha uma opcao: ";
-        std::cin >> opcao;
-        
-        // DEFININDO CONDIÇÕES
-        switch (opcao) {
-            case 1:
-                cadastrar_funcionario(vetor, num_funcionarios);
-                break; 
+        // DEFININDO MENU INTERATIVO
+        std::cout << "\n Menu de opcoes: \n" << std::endl;
+        std::cout << "(1) Cadastro de livros \n" << std::endl;
+        std::cout << "(2) Consulta de livros \n" << std::endl;
+        std::cout << "(3) Emprestimo de livros \n" << std::endl; 
+        std::cout << "(4) Devolucao de livros \n" << std::endl;
+        std::cout << "(5) Remocao de livros \n" << std::endl; 
+        std::cout << "(6) Sair \n" << std::endl;
+        std::cout << "Qual opcao voce deseja: " << std::endl;
+        std::cin >> escolha;
+
+        // DEFININDO CONDIÇÕES 
+        switch (escolha) {
+            case 1: 
+            cadastro_livros(vetor, cont);
+            break;
+
             case 2: 
-                exibir_funcionarios(vetor, num_funcionarios);
-                break; 
-            case 3: 
-                aumentar_salario(vetor, num_funcionarios); 
-                break;
-            case 4:
-                exibir_salario_acima(vetor, num_funcionarios); 
-                break; 
-            case 5: 
-                media_salarial(vetor, num_funcionarios); 
-                break;
+            consultar_livro(vetor, cont);
+            break;
+
             case 6: 
-                std::cout << "Saindo do programa" << std::endl; 
-                break;
+            std::cout << "Saindo do programa...";
+
             default: 
-                std::cout << "Opcao invalida" << std::endl;
+            std::cout << "Essa opcao nao existe!";
         }
-    } while (opcao != 6);
+    } while (escolha != 6);
 
-    return 0;
+    return 0; 
 }
-
-//  precisa definir num_funcionarios como parâmetro nas funções para que elas possam acessar e modificar o número atual de funcionários cadastrados
