@@ -1,4 +1,4 @@
-# EMPLOYEE MANAGEMENT
+# Employee Management
 
 This project is a simple employee management system in C++, allowing for registration, display, salary increase, average salary calculation, and listing of employees with salaries above a specified value.
 
