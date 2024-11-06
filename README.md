@@ -1,24 +1,24 @@
-# GESTÃO DE FUNCIONÁRIOS 
+# EMPLOYEE MANAGEMENT
 
-Este projeto é um sistema simples de gestão de funcionários em C++, onde é possível cadastrar, exibir, aumentar o salário, calcular a média salarial e listar funcionários com salário acima de um valor especificado.
+This project is a simple employee management system in C++, allowing for registration, display, salary increase, average salary calculation, and listing of employees with salaries above a specified value.
 
-## Funcionalidades
+## Features
 
-1. **Cadastrar Funcionário**: Adiciona um novo funcionário ao sistema, solicitando informações como ID, nome, salário e idade.
-2. **Exibir Funcionários**: Lista todos os funcionários cadastrados com suas respectivas informações.
-3. **Aumentar Salário**: Permite aumentar o salário de um funcionário ao fornecer seu ID e o valor do aumento.
-4. **Exibir Funcionários com Salário Acima de um Valor**: Mostra funcionários que possuem um salário superior ao valor especificado pelo usuário.
-5. **Calcular Média Salarial**: Calcula e exibe a média salarial de todos os funcionários cadastrados.
+1. **Register Employee**: Adds a new employee to the system, requesting information such as ID, name, salary, and age.
+2. **Display Employees**: Lists all registered employees with their respective information.
+3. **Increase Salary**: Allows increasing an employee's salary by providing their ID and the increment amount.
+4. **Display Employees with Salary Above a Certain Value**: Shows employees with salaries higher than a user-specified value.
+5. **Calculate Average Salary**: Calculates and displays the average salary of all registered employees.
 
-## Estrutura de Dados
+## Data Structure
 
-O sistema usa uma `struct` chamada `Funcionario` para armazenar as seguintes informações:
-- **id**: Identificador único do funcionário (inteiro).
-- **nome**: Nome do funcionário (string de até 50 caracteres).
-- **salario**: Salário do funcionário (float).
-- **idade**: Idade do funcionário (inteiro).
+The system uses a `struct` called `Funcionario` to store the following information:
+- **id**: Unique identifier for the employee (integer).
+- **nome**: Employee's name (string up to 50 characters).
+- **salario**: Employee's salary (float).
+- **idade**: Employee's age (integer).
 
-## Limitações
+## Limitations
 
-- O sistema suporta até **100 funcionários**.
-- O nome do funcionário é limitado a **50 caracteres**.
+- The system supports up to **100 employees**.
+- Employee names are limited to **50 characters**.
